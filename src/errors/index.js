@@ -4,7 +4,22 @@ function conflictError(message) {
       message,
     };
   }
+
+  function appointmentExists () {
+    return {
+      name:"AppointmentExists",
+      message:"This date and time already has a scheduled appointment",
+    }
+  }
   
+
+  function doctorNotAvailable () {
+    return {
+      name:"DoctorNotAvailable",
+      message:"The doctor is not available at this time"
+    }
+  }
+
   function duplicatedEmailError(email) {
     return {
       name: "DuplicatedEmailError",
@@ -40,4 +55,6 @@ function conflictError(message) {
     unauthorizedError,
     notFoundError,
     invalidCredentialsError,
+    appointmentExists,
+    doctorNotAvailable
   };

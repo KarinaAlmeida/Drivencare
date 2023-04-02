@@ -25,6 +25,14 @@ export function handleApplicationErrors(err, req, res, next) {
         message: err.message,
       });
     }
+
+    if (err.name=== "AppointmentExists") {
+      return res.status(httpStatus.CONFLICT).send({ message: err.message });
+    }
+
+    if (err.name==="DoctorNotAvailable") {
+      return res.status(httpStatus.CONFLICT).send({ message: err.message});
+    }
   
     return res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
       error: "InternalServerError",

@@ -20,8 +20,8 @@ const signupdoc = joi.object({
   confirmPassword: joi.string().valid(joi.ref('password')).required(),
   specialty: joi.string().required(),
   address: joi.string().required(),
-  checkin: joi.string().regex(/^(1[0-8]|[9]):[0-5][0-9]$/).required(),
-  checkout: joi.string().regex(/^(1[0-8]|[9]):[0-5][0-9]$/).required()
+  checkin: joi.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/).required(),
+  checkout: joi.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/).required()
 })
 
 

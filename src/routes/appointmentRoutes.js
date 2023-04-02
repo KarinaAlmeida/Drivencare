@@ -1,12 +1,18 @@
-// import { Router } from "express";
-// import appointmentControllers from "../controllers/appointmentControllers.js";
+import { Router } from "express";
+import appointmentControllers from "../controllers/appointmentControllers.js";
+import authValidation from "../middlewares/authMiddleware.js";
 
-// const appointmentRoutes = Router();
 
-// appointmentRoutes.get('/', appointmentControllers.getappointment)
+const appointmentRoutes = Router();
+
+
+appointmentRoutes.get('/search', authValidation, appointmentControllers.searchDoctor)
+
+appointmentRoutes.post('/', authValidation, appointmentControllers.createappointment)
+
+// appointmentRoutes.get('/patients', authValidation, appointmentControllers.getappointment)
+
 // appointmentRoutes.get('/', appointmentControllers.getappointmentdoc)
-
-// appointmentRoutes.post('/', appointmentControllers.postappointment)
 
 // appointmentRoutes.patch("/", appointmentControllers.confirmedappointment)
 
@@ -15,4 +21,13 @@
 
 
 
-// export default appointmentRoutes;
+export default appointmentRoutes;
+
+// appointmentsRoutes.post(
+//     "/patient",
+//     authentication,
+//     userTypeValidate("patient"),
+//     schemaValidate(appointSchemas.create),
+//     hourAndDateValidation,
+//     appointmentsControllers.create
+//   );

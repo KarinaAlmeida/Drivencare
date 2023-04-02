@@ -7,8 +7,7 @@ async function signup(req, res, next) {
     return res.sendStatus(201);
   } catch (err) {
     next(err);
-    console.log(err)
-  }
+    }
 }
 
 async function signupdoc(req, res, next) {
