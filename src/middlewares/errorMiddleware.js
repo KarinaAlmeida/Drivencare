@@ -37,6 +37,10 @@ export function handleApplicationErrors(err, req, res, next) {
     if (err.name==="DoctorNotAvailable") {
       return res.status(httpStatus.CONFLICT).send({ message: err.message});
     }
+
+    if (err.name==="NotAllowed") {
+      return res.status(httpStatus.CONFLICT).send({ message: err.message});
+    }
   
     return res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
       error: "InternalServerError",

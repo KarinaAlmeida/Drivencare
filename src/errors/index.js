@@ -48,6 +48,13 @@ function conflictError(message) {
       message: "There is no appointments made!",
     };
   }
+
+  function notAllowed() {
+    return {
+      name: "NotAllowed",
+      message: "You are not allowed to access this!",
+    };
+  }
   
   function invalidCredentialsError() {
     return {
@@ -64,5 +71,6 @@ function conflictError(message) {
     invalidCredentialsError,
     appointmentExists,
     doctorNotAvailable,
-    noAppointments
+    noAppointments,
+    notAllowed
   };

@@ -64,16 +64,66 @@ async function getappointmentdoc (req, res, next) {
     }
 }
 
-
 async function confirmappointment (req, res, next) {
+        try {
+         
+          const id = +req.params.id;
+          const user = res.locals.user;
+     
+          await appointmentServices.confirm({ doctor_id: user.id, id});
+      
+          
+          return res.sendStatus(202);
+        } catch (err) {
+          next(err);
+        }
+      
 
 }
 
+
+async function cancelappointment (req, res, next){
+    try {
+        const id = +req.params.id;
+        const user = res.locals.user;
+    
+        const appointment = await appointmentServices.cancel({ doctor_id: user.id, id});
+    
+        return res.status(202).send(appointment);
+      } catch (err) {
+        console.log(err)
+        next(err);
+      }
+}
+
+
 async function gethistory (req, res, next) {
+
+    const user = res.locals.user;
+    try {
+      const result = await appointmentServices.gethistory({
+        id: user.id,
+      });
+  
+      return res.send({ result });
+    } catch (error) {
+        next (error);
+    }
 
 }
 
 async function gethistorydoc (req, res, next) {
+
+    const user = res.locals.user;
+    try {
+      const result = await appointmentServices.gethistorydoc({
+        id: user.id,
+      });
+  
+      return res.send({ result });
+    } catch (error) {
+        next (error);
+    }
 
 }
 
@@ -85,6 +135,7 @@ export default {
     createappointment,
     confirmappointment,
     gethistory,
-    gethistorydoc
+    gethistorydoc,
+    cancelappointment
 
 }
