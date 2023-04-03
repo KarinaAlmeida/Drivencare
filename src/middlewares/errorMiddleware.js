@@ -30,6 +30,10 @@ export function handleApplicationErrors(err, req, res, next) {
       return res.status(httpStatus.CONFLICT).send({ message: err.message });
     }
 
+    if (err.name=== "NoAppointmentsMade") {
+      return res.status(httpStatus.CONFLICT).send({ message: err.message });
+    }
+
     if (err.name==="DoctorNotAvailable") {
       return res.status(httpStatus.CONFLICT).send({ message: err.message});
     }

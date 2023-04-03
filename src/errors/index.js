@@ -41,6 +41,13 @@ function conflictError(message) {
       message: "No result for this search!",
     };
   }
+
+  function noAppointments() {
+    return {
+      name: "NoAppointmentsMade",
+      message: "There is no appointments made!",
+    };
+  }
   
   function invalidCredentialsError() {
     return {
@@ -56,5 +63,6 @@ function conflictError(message) {
     notFoundError,
     invalidCredentialsError,
     appointmentExists,
-    doctorNotAvailable
+    doctorNotAvailable,
+    noAppointments
   };

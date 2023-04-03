@@ -10,7 +10,13 @@ appointmentRoutes.get('/search', authValidation, appointmentControllers.searchDo
 
 appointmentRoutes.post('/', authValidation, appointmentControllers.createappointment)
 
-// appointmentRoutes.get('/patients', authValidation, appointmentControllers.getappointment)
+
+appointmentRoutes.get('/patients', authValidation, appointmentControllers.getappointment)
+
+appointmentRoutes.get('/doctors', authValidation, appointmentControllers.getappointmentdoc)
+
+appointmentRoutes.post('/doctors', authValidation, appointmentControllers.confirmappointment)
+
 
 // appointmentRoutes.get('/', appointmentControllers.getappointmentdoc)
 

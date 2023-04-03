@@ -29,12 +29,24 @@ async function searchDoctor({name, address, specialty}){
 
 
 async function getappointment ({id}) {
-const date = dayjs().format("DD/MM/YYYY");
-return await appointmentRepositories.findbyIdPatient({ date, id });
+const {rows, rowCount} = await appointmentRepositories.findbyIdPatient({id})
+
+if (!rowCount) throw error.appointmentExists()
+
+return rows
  }
+
+ async function getappointmentdoc ({id}) {
+    const {rows, rowCount} = await appointmentRepositories.findbyIdDoctor({id})
+    
+    if (!rowCount) throw error.appointmentExists()
+    
+    return rows
+     }
 
 export default {
     getappointment,
+    getappointmentdoc,
     searchDoctor,
     create
     

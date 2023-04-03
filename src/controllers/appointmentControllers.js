@@ -1,5 +1,6 @@
 import appointmentServices from "../services/appointmentServices.js";
 
+
 async function searchDoctor (req, res, next) {
     const {name, address, specialty} = req.query
     try {
@@ -38,12 +39,11 @@ async function createappointment (req, res, next) {
 async function getappointment (req, res, next) {
     const user = res.locals.user;
     try {
-      const { rows: schedule } = await appointmentServices.getappointment({
+      const result = await appointmentServices.getappointment({
         id: user.id,
       });
-      console.log(rows)
   
-      return res.send({ schedule });
+      return res.send({ result });
     } catch (error) {
         next (error);
     }
@@ -52,10 +52,20 @@ async function getappointment (req, res, next) {
 
 async function getappointmentdoc (req, res, next) {
 
+    const user = res.locals.user;
+    try {
+      const result = await appointmentServices.getappointmentdoc({
+        id: user.id,
+      });
+  
+      return res.send({ result });
+    } catch (error) {
+        next (error);
+    }
 }
 
 
-async function confirmedappointment (req, res, next) {
+async function confirmappointment (req, res, next) {
 
 }
 
@@ -73,7 +83,7 @@ export default {
     getappointment,
     getappointmentdoc,
     createappointment,
-    confirmedappointment,
+    confirmappointment,
     gethistory,
     gethistorydoc
 

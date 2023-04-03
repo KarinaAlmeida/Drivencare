@@ -1,5 +1,7 @@
 import connectionDb from "../config/database.js";
 import error from "../errors/index.js";
+import dayjs from 'dayjs';
+
 
 
 async function searchDoctor ({name, address, specialty}) {
@@ -63,41 +65,39 @@ async function create({ doctor_id, user_id, day, time }) {
       }
 
 
-async function findbyIdPatient({ date, id }) {
-    return await db.query(
+
+  async function findbyIdPatient({id}) {
+    const today = dayjs().format('YYYY-MM-DD'); // Obter a data atual formatada
+  
+    return await connectionDb.query(
       `
-      SELECT 
-        a.id, p.name as patient, d.name as doctor,
-        d.specialty, a.day, a.time,
-      FROM appointments a 
-      JOIN patients p ON p.id = a.patient_id
-      JOIN doctors d ON d.id = a.doctor_id
-      WHERE a.day>=$1 AND a."patient_id"=$2
-      ORDER BY a.day ASC
+        SELECT 
+          a.id, a.day, a.time, d.name, d.specialty
+        FROM appointments a
+        JOIN doctors d ON a.doctor_id= d.id
+        WHERE a.patient_id = $1 AND a.day >= $2
       `,
-      [date, id]
+      [id, today]
     );
   }
 
-// async function getappointmentdoc (req, res, next) {
+  async function findbyIdDoctor({id}) {
+    const today = dayjs().format('YYYY-MM-DD'); // Obter a data atual formatada
+  
+    return await connectionDb.query(
+      `
+    SELECT 
+      a.id, a.day, a.time, p.name, d.specialty
+    FROM appointments a
+    JOIN doctors d ON a.doctor_id = d.id
+    JOIN patients p ON a.patient_id = p.id
+    WHERE a.doctor_id = $1 AND a.day >= $2
+      `,
+      [id, today]
+    );
+  }
 
-// }
 
-// async function postappointment (req, res, next) {
-
-// }
-
-// async function confirmedappointment (req, res, next) {
-
-// }
-
-// async function gethistory (req, res, next) {
-
-// }
-
-// async function gethistorydoc (req, res, next) {
-
-// }
 
 
 export default {
@@ -105,12 +105,7 @@ export default {
     create,
     findDuplicate,
     checkDoctorAvailability,
-    findbyIdPatient
-    // getappointment,
-    // getappointmentdoc,
-    // postappointment,
-    // confirmedappointment,
-    // gethistory,
-    // gethistorydoc
+    findbyIdPatient,
+    findbyIdDoctor
 
 }
